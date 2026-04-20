@@ -1,121 +1,172 @@
-# AI Asistan Kampusu
+# 📊 AI Destekli Veri Görselleştirme ve Market Analiz Sistemi
 
-<div align="center">
+## 📌 Genel Bakış
 
-### Sekilli Sukullu Ogrenci Baslangic Rehberi
+Bu proje, veri görselleştirme dersine ait temel bir uygulamanın geliştirilmiş ve genişletilmiş bir versiyonudur. Amaç, klasik veri görselleştirme yaklaşımını daha akıllı, etkileşimli ve bağlama duyarlı hale getirmektir.
 
-`Local AI + Cloud AI = Daha hizli ogrenme`
+Proje kapsamında kullanıcı, herhangi bir metni seçerek F8 tuşu aracılığıyla sistemle etkileşime geçebilir. Sistem bu metni analiz eder, bağlamını belirler ve buna uygun analiz, yorum ve görselleştirme önerileri üretir.
 
-[![Ollama](https://img.shields.io/badge/Ollama-Local%20LLM-111827?style=for-the-badge)](https://docs.ollama.com/quickstart)
-[![Gemini 3 Preview](https://img.shields.io/badge/Gemini%203-Preview-0f766e?style=for-the-badge)](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/start/get-started-with-gemini-3)
-[![Google Cloud](https://img.shields.io/badge/Google%20Cloud-Vertex%20AI-1a73e8?style=for-the-badge)](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/start/quickstart)
+Bu proje geliştirilirken özellikle **kurulabilirlik, taşınabilirlik ve tekrar üretilebilirlik (reproducibility)** dikkate alınmıştır. Bu nedenle sistemin çalışabilmesi için gerekli olan tüm bağımlılıklar ve kurulum adımları README içerisinde **"Gereksinimler & Kurulum" başlığı altında açık ve detaylı şekilde sunulmuştur**.
 
-</div>
+Bu yönüyle proje yalnızca bir uygulama değil, aynı zamanda **kolay kurulabilir ve yeniden üretilebilir bir yazılım çözümü** olarak tasarlanmıştır.
 
-```text
- ____  ____     _   _ _____ _   _ _  __      _    ____ ___ _
-|  _ \|  _ \   | | | |  ___| | | | |/ /     / \  / ___|_ _| |
-| | | | |_) |  | | | | |_  | | | | ' /     / _ \ \___ \| || |
-| |_| |  _ <   | |_| |  _| | |_| | . \    / ___ \ ___) | || |___
-|____/|_| \_\   \___/|_|    \___/|_|\_\  /_/   \_\____/___|_____|
-K   K  L      U   U  BBBB   EEEEE         H   H   OOO    SSSS          GGG   EEEEE  L      DDDD   IIIII  N   N           !
-K  K   L      U   U  B   B  E             H   H  O   O  S             G      E      L      D   D    I    NN  N           !
-KKK    L      U   U  BBBB   EEE           HHHHH  O   O   SSS          G  GG  EEE    L      D   D    I    N N N           !
-K  K   L      U   U  B   B  E             H   H  O   O      S         G   G  E      L      D   D    I    N  NN
-K   K  LLLLL   UUU   BBBB   EEEEE         H   H   OOO   SSSS           GGG   EEEEE  LLLLL  DDDD   IIIII  N   N           !
-```
+---
 
-> [!IMPORTANT]
-> Gemini 3 preview "indirilen bir program" degil, Google Cloud Vertex AI uzerinden API ile kullanilan bir model ailesidir.
+## 🎯 Projenin Amacı
 
-## 0) Ogrenci Icin Tek Adim
+Bu projenin temel amacı, veri görselleştirme sürecini daha verimli, yönlendirici ve akıllı hale getirmektir.
 
-1. Ollama'yi bir kez kur: https://docs.ollama.com/windows models kısmına gir https://ollama.com/library  ve gemini 3 preview cloud modelinini çalıştır yetki giriş gerekecek. ollama artık lokalinde bir LLM olarak sana hizmet vermeye hazır .
+Klasik veri görselleştirme sürecinde kullanıcı:
+- veriyi analiz eder
+- uygun grafik tipini seçer
+- yorum üretir
 
-2. Bu klasorde sadece `BASLAT.bat` calistir.
-3. Hepsi bu kadar.
+Bu projede ise sistem:
 
-> [!IMPORTANT]
-> Ogrenci tarafinda ekstra komut gerekmez. `BASLAT.bat` gerekli durumda `kurulum.bat` dosyasini otomatik cagirir ve ortami kendi kurar.
+- Kullanıcıdan gelen girdiyi analiz eder  
+- Girdinin bağlamını belirler (ürün / kategori / alakasız)  
+- Bu bağlama göre analiz ve öneri üretir  
+- Kullanıcıya doğrudan uygulanabilir çıktılar sunar  
 
-## 1) BASLAT Calisinca Ne Oluyor?
+Bu yaklaşım sayesinde proje, yalnızca veri sunan bir yapıdan çıkarak **karar destek sistemi** haline getirilmiştir.
 
-1. `BASLAT.bat` önce `.venv` var mi kontrol eder.
-2. Yoksa `kurulum.bat` otomatik calisir; Python 3 kontrolu, `.venv` olusturma, `pip` guncelleme ve `requirements.txt` paket kurulumu yapilir.
-3. Sonra `main.pyw` arka planda acilir.
-4. Uygulama varsayilan olarak `gemma3:1b` modeliyle Ollama'ya istek atar.
+---
 
-Ollama API varsayilan adresi: `http://localhost:11434`
+## 🧠 Sistem Özellikleri
 
-## 2) Google Cloud Gemini 3 Preview (Vertex AI)
+### 🔹 Metin Tabanlı Etkileşim (F8 Menü Sistemi)
 
-### Once gerekli olanlar
-- Google Cloud projesi
-- Billing acik olmali
-- Vertex AI API aktif olmali
-- `gcloud` CLI kurulu olmali
+Kullanıcı herhangi bir uygulamada metin seçer ve `F8` tuşuna basarak sistemle etkileşime geçebilir.
 
-### gcloud giris ve kimlik
+Sunulan işlemler:
 
-```powershell
-gcloud init
-gcloud auth application-default login
-```
+- Gramer düzeltme  
+- Çeviri (TR / EN)  
+- Özetleme  
+- Resmileştirme  
+- Python kodu üretimi  
+- Mail cevabı yazma  
 
-### Proje ve API ayari
+---
 
-```powershell
-gcloud config set project YOUR_PROJECT_ID
-gcloud services enable aiplatform.googleapis.com
-```
+### 🔹 Bağlam Analizi (Ürün / Kategori Tespiti)
 
-### Python SDK kurulumu
+Sistem, seçilen metni analiz ederek aşağıdaki sınıflardan birine yerleştirir:
 
-```powershell
-pip install --upgrade google-genai
-```
+- Ürün (örneğin: "yumurta")  
+- Kategori (örneğin: "süt ürünleri")  
+- Alakasız metin (örneğin: "merhaba")  
 
-### Ortam degiskenleri (PowerShell)
+Bu yapı sayesinde sistem yalnızca anlamlı girdiler üzerinde çalışır ve daha doğru sonuçlar üretir.
 
-```powershell
-$env:GOOGLE_CLOUD_PROJECT="YOUR_PROJECT_ID"
-$env:GOOGLE_CLOUD_LOCATION="global"
-$env:GOOGLE_GENAI_USE_VERTEXAI="True"
-```
+---
 
-### Ilk Gemini 3 Preview istegi
+### 🔹 Market Odaklı AI Analizi
 
-```python
-from google import genai
+Ürün veya kategori tespit edildiğinde:
 
-client = genai.Client()
+- Satış içgörüsü  
+- Grafik önerileri  
+- Dashboard fikirleri  
+- Kampanya önerileri  
+- Müşteri analizi  
 
-response = client.models.generate_content(
-    model="gemini-3-flash-preview",
-    contents="Merhaba! Bana 3 maddede Python'da for dongusunu anlat.",
-)
+gibi çıktılar üretilir.
 
-print(response.text)
-```
+---
 
+### 🔹 Veri Görselleştirme
 
-## 3) Mini Ogrenci Challenge (Opsiyonel)
-1. Terminalde su komutu yaz: `ollama run gemini-3-flash-preview`
-2. Sonra Ollama'da gecerli bir modelle sor: `ollama run gemma3:1b`
-3. Ayni soruyu Gemini 3 preview ile sor.
-4. Cevaplari hiz, detay ve dogruluk acisindan karsilastir.
+CSV veri seti üzerinden:
 
-## 4) Hata Cozme Kisa Notlari
-- `403` alirsan: Billing, Vertex AI API ve IAM rol (`roles/aiplatform.user`) kontrol et.
-- `401` alirsan: `gcloud auth application-default login` komutunu yeniden calistir.
-- `ollama model not found` alirsan once su komutu calistir: `ollama run gemma3:1b`
-- `Model not found` alirsan: model ID'yi kontrol et (`gemini-3-flash-preview`, `gemini-3-pro-preview`, `gemini-3.1-pro-preview`).
+- veri analizi yapılır  
+- grafikler oluşturulur  
+- görselleştirme sağlanır  
 
-## Kaynaklar (Resmi)
-- Ollama Quickstart: https://docs.ollama.com/quickstart
-- Ollama Windows: https://docs.ollama.com/windows
-- Ollama Linux: https://docs.ollama.com/linux
-- Vertex AI Quickstart: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/start/quickstart
-- Gemini 3 Baslangic: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/start/get-started-with-gemini-3
-- Gemini 3 Pro Model: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/3-pro
-- Gemini 3 Flash Model: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/3-flash
+---
+
+## ⚙️ Gereksinimler & Kurulum
+
+Bu bölüm, projenin farklı bilgisayarlarda sorunsuz şekilde çalıştırılabilmesi için gerekli olan yazılım bileşenlerini, bağımlılıkları ve kurulum adımlarını ayrıntılı olarak açıklamaktadır. Proje, hem genel amaçlı metin işleme işlemlerini hem de market satış verisi odaklı yapay zekâ destekli analizleri bir arada sunduğu için, kurulum sürecinde hem Python ortamının hem de yerel LLM servisinin doğru biçimde hazırlanması gerekir. Proje ayrıca F8 kısayolu ile çalışan masaüstü etkileşimine, yerel panoya erişime, pencere tabanlı arayüze ve CSV seçimi üzerinden veri analizine dayanmaktadır. Bu nedenle kurulum yalnızca “paket yüklemekten” ibaret değildir; aynı zamanda çalışma ortamının doğru hazırlanmasını da içerir.
+
+### 🔧 Sistem Gereksinimleri
+
+Projeyi çalıştırmak için aşağıdaki temel gereksinimlerin sağlanması gerekir:
+
+#### 1. Python 3.10 veya üzeri
+Proje Python ile yazılmıştır ve ana uygulama main.pyw dosyası üzerinden çalışır. Kod içinde hem standart kütüphaneler hem de üçüncü taraf paketler kullanılmaktadır. Bu nedenle güncel bir Python sürümü önerilir. tkinter, threading, queue, time, os, tempfile ve atexit gibi modüller Python standart kütüphanesinden gelirken; pyperclip, pynput, pyautogui ve requests dış bağımlılıklardır.
+
+#### 2. Ollama
+Proje, metin üretimi ve analiz işlemleri için yerel olarak çalışan bir Ollama servisine bağlanır. Kodda API adresi http://localhost:11434/api/generate olarak tanımlanmıştır. Bu da Ollama servisinin yerel makinede açık olması gerektiği anlamına gelir. Ayrıca varsayılan model gemma3:1b olarak ayarlanmıştır.
+
+#### 3. Yerel model
+Kodda varsayılan aday model listesinde gemma3:1b yer almaktadır. Program, önce mevcut modelleri kontrol eder ve uygun bir modeli seçmeye çalışır. Bu nedenle sistemde en azından bu modelin kurulu olması gerekir.
+
+#### 4. Windows ortamı önerilir
+Proje F8 global kısayolu, pano işlemleri, fare konumu üzerinden popup menü açılması ve .bat ile başlatma gibi kullanım alışkanlıklarına göre tasarlanmıştır. Teknik olarak bazı parçalar farklı sistemlerde de çalışabilir, ancak mevcut kullanım biçimi Windows üzerinde daha uygundur. pyautogui, pynput ve pano erişimi gibi bileşenler burada kritik rol oynar.
+
+#### 5. Proje dosya yapısı eksiksiz olmalıdır
+Ana dosya tek başına yeterli değildir. main.pyw, yerel modül olarak market_analiz içinden market_verisini_hazirla ve gorsellestirme içinden market_penceresi_olustur fonksiyonlarını içe aktarır. Yani bu iki dosyanın da proje klasöründe bulunması gerekir. Aksi halde program açılışta import hatası verir.
+
+#### 6. CSV veriyle çalışma için veri dosyası
+Market analizi özelliği, kullanıcıdan bir .csv dosyası seçmesini ister. Bu nedenle market analizi modülünü kullanmak için uygun formatta bir CSV dosyasına ihtiyaç vardır. Kod içinde dosya seçim penceresi yalnızca CSV uzantılı dosyaları kabul edecek şekilde ayarlanmıştır.
+
+---
+
+### 🖱️ Kullanım İçin Ek Gereksinimler
+
+Bu proje klasik bir terminal uygulaması gibi değil; masaüstü etkileşimine dayalıdır. Bu yüzden kurulumdan sonra şu kullanım koşullarını da bilmek gerekir:
+
+#### 1. F8 kısayolu aktif olmalı
+Kodda kısayol tuşu keyboard.Key.f8 olarak tanımlanmıştır. F8’e basıldığında program seçili metni panodan okumaya çalışır ve popup menü açar.
+
+#### 2. Metin seçimi yapılmış olmalı
+Program, seçili metni Ctrl+C ile kopyalamaya çalışır. Eğer kullanıcı önceden bir metin seçmemişse, uyarı mesajı verir. Bu yüzden F8 kullanımı “önce metin seç, sonra F8’e bas” mantığına dayanır.
+
+#### 3. Market analizi için CSV seçilmelidir
+Menüden market analizi açıldığında kullanıcıdan bir CSV dosyası seçmesi beklenir. Geçerli veri olmadan bu modül çalışmaz.
+
+---
+
+### 🧪 Kurulumdan Sonra Test Etme
+
+Kurulumu tamamladıktan sonra hızlı kontrol için şunları test et:
+
+1. Terminalde programı başlat.  
+2. Ollama servisinin açık olduğundan emin ol.  
+3. Basit bir metin yaz: yumurta  
+4. Bu metni seç.  
+5. F8 tuşuna bas.  
+6. Menü açılıyorsa temel sistem çalışıyor demektir.  
+7. Menüden bir AI işlemi seç.  
+8. Market modülü için ayrıca bir CSV dosyası seçerek görselleştirme akışını kontrol et.  
+
+Bu test akışı, hem metin işleme sistemini hem de market analizi akışını doğrulamak için yeterlidir.
+
+## 🧩 Sistem Mimarisi
+
+```mermaid
+flowchart TD
+
+A[Metin Secimi] --> B[F8 Tusuna Basilir]
+B --> C[Metin Kopyalanir]
+C --> D[Metin Analizi]
+
+D -->|Urun/Kategori| E[Market AI Islemleri]
+D -->|Genel Metin| F[Standart AI Islemleri]
+D -->|Alakasiz| G[Uyari Ver]
+
+E --> H[Prompt Olustur]
+F --> H
+
+H --> I[Ollama Modeli]
+I --> J[Sonuc Uret]
+
+J --> K[Popup veya Metne Yaz]
+
+E --> L[Grafik Onerisi]
+E --> M[Dashboard Fikri]
+E --> N[Satis Icgorusu]
+
+O[CSV Veri] --> P[Market Analizi]
+P --> Q[Grafik Gosterimi]
